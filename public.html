@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lucky Draw Spinner</title>
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
     canvas {
       display: block;
       margin: 20px auto;
@@ -24,8 +28,8 @@
   </style>
 </head>
 <body>
-  <h1 style="text-align:center;">Lucky Draw Spinner</h1>
-  <canvas id="spinner" width="400" height="400"></canvas>
+  <h1>Lucky Draw Spinner</h1>
+  <canvas id="spinner" width="500" height="500"></canvas>
   <button id="spin-btn">Spin</button>
 
   <div id="winner">
@@ -33,16 +37,16 @@
     <p>Your unique code is: <span id="unique-code"></span></p>
   </div>
 
-  <!-- Include TweenMax -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <!-- Include TweenMax (Legacy GSAP Version) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
 
   <!-- Include Winwheel.js -->
   <script src="https://cdn.jsdelivr.net/gh/zarocknz/javascript-winwheel/Winwheel.min.js"></script>
 
   <script>
-    // Spinner configuration
+    // Create the spinning wheel
     const wheel = new Winwheel({
-      numSegments: 6,
+      numSegments: 6, // Number of segments
       segments: [
         { fillStyle: '#eae56f', text: 'Prize 1' },
         { fillStyle: '#89f26e', text: 'Prize 2' },
@@ -52,28 +56,7 @@
         { fillStyle: '#89f26e', text: 'Prize 5' }
       ],
       animation: {
-        type: 'spinToStop',
-        duration: 5,
-        spins: 8,
-        callbackFinished: displayWinner
-      }
-    });
-
-    // Spin button functionality
-    document.getElementById('spin-btn').addEventListener('click', function () {
-      wheel.startAnimation();
-    });
-
-    // Display winner details
-    function displayWinner(indicatedSegment) {
-      if (indicatedSegment.text !== 'Try Again') {
-        const uniqueCode = `WIN-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-        document.getElementById('unique-code').textContent = uniqueCode;
-        document.getElementById('winner').style.display = 'block';
-      } else {
-        alert('Better luck next time!');
-      }
-    }
-  </script>
-</body>
-</html>
+        type: 'spinToStop', // Spin animation type
+        duration: 5,        // Duration of the spin in seconds
+        spins: 8,           // Number of spins
+       
