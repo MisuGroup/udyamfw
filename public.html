@@ -1,19 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Lucky Draw</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lucky Draw Spinner</title>
+  <style>
+    canvas {
+      display: block;
+      margin: 20px auto;
+      border: 1px solid #ccc;
+    }
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    #winner {
+      text-align: center;
+      margin-top: 20px;
+      display: none;
+    }
+  </style>
 </head>
 <body>
-  <h1>Lucky Draw</h1>
-  <canvas id="spinner" width="500" height="500"></canvas>
+  <h1 style="text-align:center;">Lucky Draw Spinner</h1>
+  <canvas id="spinner" width="400" height="400"></canvas>
   <button id="spin-btn">Spin</button>
 
-  <div id="winner" style="display:none;">
+  <div id="winner">
     <h2>Congratulations!</h2>
     <p>Your unique code is: <span id="unique-code"></span></p>
   </div>
 
-  <script src="js/spinner.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Winwheel.js/2.7.0/Winwheel.min.js"></script>
+  <script>
+    // Spinner configuration
+    const wheel = new Winwheel({
+      numSegments: 6,
+      segments: [
+        { fillStyle: '#eae56f', text: 'Prize 1' },
+        { fillStyle: '#89f26e', text: 'Prize 2' },
+        { fillStyle: '#7de6ef', text: 'Prize 3' },
+        { fillStyle: '#e7706f', text: 'Prize 4' },
+        { fillStyle: '#eae56f', text: 'Try Again' },
+        { fillStyle: '#89f26e', text: 'Prize 5' }
+      ],
+      animation: {
+        type: 'spinToStop',
+        duration: 5,
+        spins: 8,
+        callbackFinished: displayWinner
+      }
+    });
+
+    // Spin button functionality
+    document.getElementById('spin-btn').addEventListener('click', function () {
+      wheel.startAnimation();
+    });
+
+    // Display winner details
+    function displayWinner(indicatedSegment) {
+      if (indicatedSegment.text !== 'Try Again') {
+        const uniqueCode = `WIN-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+        document.getElementById('unique-code').textContent = uniqueCode;
+        document.getElementById('winner').style.display = 'block';
+      } else {
+        alert('Better luck next time!');
+      }
+    }
+  </script>
 </body>
 </html>
