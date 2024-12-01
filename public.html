@@ -37,8 +37,8 @@
     <p>Your unique code is: <span id="unique-code"></span></p>
   </div>
 
-  <!-- Include TweenMax (Legacy GSAP Version) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+  <!-- Include TweenMax (Legacy GSAP 2.x Version) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
 
   <!-- Include Winwheel.js -->
   <script src="https://cdn.jsdelivr.net/gh/zarocknz/javascript-winwheel/Winwheel.min.js"></script>
@@ -59,4 +59,26 @@
         type: 'spinToStop', // Spin animation type
         duration: 5,        // Duration of the spin in seconds
         spins: 8,           // Number of spins
-       
+        callbackFinished: displayWinner // Callback when spin finishes
+      },
+      textFontSize: 18
+    });
+
+    // Spin button functionality
+    document.getElementById('spin-btn').addEventListener('click', function () {
+      wheel.startAnimation();
+    });
+
+    // Display the winner
+    function displayWinner(indicatedSegment) {
+      if (indicatedSegment.text !== 'Try Again') {
+        const uniqueCode = `WIN-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+        document.getElementById('unique-code').textContent = uniqueCode;
+        document.getElementById('winner').style.display = 'block';
+      } else {
+        alert('Better luck next time!');
+      }
+    }
+  </script>
+</body>
+</html>
