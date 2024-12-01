@@ -1,84 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lucky Draw Spinner</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
-    canvas {
-      display: block;
-      margin: 20px auto;
-      border: 1px solid #ccc;
-    }
-    button {
-      display: block;
-      margin: 20px auto;
-      padding: 10px 20px;
-      font-size: 16px;
-    }
-    #winner {
-      text-align: center;
-      margin-top: 20px;
-      display: none;
-    }
-  </style>
-</head>
-<body>
-  <h1>Lucky Draw Spinner</h1>
-  <canvas id="spinner" width="500" height="500"></canvas>
-  <button id="spin-btn">Spin</button>
+// Initialize the spinner
+const wheel = new Winwheel({
+  numSegments: 6, // Number of segments
+  segments: [
+    { fillStyle: '#eae56f', text: 'Prize 1' },
+    { fillStyle: '#89f26e', text: 'Prize 2' },
+    { fillStyle: '#7de6ef', text: 'Prize 3' },
+    { fillStyle: '#e7706f', text: 'Prize 4' },
+    { fillStyle: '#eae56f', text: 'Try Again' },
+    { fillStyle: '#89f26e', text: 'Prize 5' }
+  ],
+  animation: {
+    type: 'spinToStop',
+    duration: 5,
+    spins: 8,
+    callbackFinished: displayWinner
+  },
+  textFontSize: 18
+});
 
-  <div id="winner">
-    <h2>Congratulations!</h2>
-    <p>Your unique code is: <span id="unique-code"></span></p>
-  </div>
+// Spin button functionality
+document.getElementById('spin-btn').addEventListener('click', function () {
+  wheel.startAnimation();
+});
 
-  <!-- Include TweenMax (Legacy GSAP 2.x Version) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
-
-  <!-- Include Winwheel.js -->
-  <script src="https://cdn.jsdelivr.net/gh/zarocknz/javascript-winwheel/Winwheel.min.js"></script>
-
-  <script>
-    // Create the spinning wheel
-    const wheel = new Winwheel({
-      numSegments: 6, // Number of segments
-      segments: [
-        { fillStyle: '#eae56f', text: 'Prize 1' },
-        { fillStyle: '#89f26e', text: 'Prize 2' },
-        { fillStyle: '#7de6ef', text: 'Prize 3' },
-        { fillStyle: '#e7706f', text: 'Prize 4' },
-        { fillStyle: '#eae56f', text: 'Try Again' },
-        { fillStyle: '#89f26e', text: 'Prize 5' }
-      ],
-      animation: {
-        type: 'spinToStop', // Spin animation type
-        duration: 5,        // Duration of the spin in seconds
-        spins: 8,           // Number of spins
-        callbackFinished: displayWinner // Callback when spin finishes
-      },
-      textFontSize: 18
-    });
-
-    // Spin button functionality
-    document.getElementById('spin-btn').addEventListener('click', function () {
-      wheel.startAnimation();
-    });
-
-    // Display the winner
-    function displayWinner(indicatedSegment) {
-      if (indicatedSegment.text !== 'Try Again') {
-        const uniqueCode = `WIN-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-        document.getElementById('unique-code').textContent = uniqueCode;
-        document.getElementById('winner').style.display = 'block';
-      } else {
-        alert('Better luck next time!');
-      }
-    }
-  </script>
-</body>
-</html>
+// Display the winner
+function displayWinner(indicatedSegment) {
+  if (indicatedSegment.text !== 'Try Again') {
+    const uniqueCode = `WIN-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    document.getElementById('unique-code').textContent = uniqueCode;
+    document.getElementById('winner').style.display = 'block';
+  } else {
+    alert('Better luck next time!');
+  }
+}
