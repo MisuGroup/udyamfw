@@ -1,13 +1,21 @@
-
 body {
     background-color: rgb(118, 184, 123);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
 }
 
-
 .app {
+    display: flex;
+    gap: 40px;
+}
+
+.wheel-container {
     width: 400px;
     height: 400px;
-    margin: 0 auto;
     position: relative;
 }
 
@@ -22,18 +30,18 @@ body {
     left: 172px;
     top: -10px;
     z-index: 2;
-  }
+}
 
 .button {
     display: block;
     width: 250px;
-    margin: 40px auto;
+    margin: 20px auto;
     cursor: pointer;
 }
 
 .button:hover {
     opacity: 0.8;
-  }
+}
 
 .blur {
     animation: blur 10s;
@@ -41,12 +49,50 @@ body {
 
 @keyframes blur {
     0% {
-        filter: blur(1.5px)
+        filter: blur(1.5px);
     }
     80% {
-        filter: blur(0.5px)
+        filter: blur(0.5px);
     }
     100% {
-        filter: blur(0)
+        filter: blur(0);
     }
 }
+
+.info-panel {
+    width: 300px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+.info-panel h2 {
+    margin-top: 0;
+}
+.info-panel p {
+    margin: 10px 0;
+}
+.message-box {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    background-color: #333;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-size: 18px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    z-index: 1000;
+}
+
+.message-box.success {
+    background-color: #4caf50; /* Green for success */
+}
+
+.message-box.failure {
+    background-color: #f44336; /* Red for failure */
+}
+
