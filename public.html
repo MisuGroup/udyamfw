@@ -8,6 +8,12 @@
     body {
       font-family: Arial, sans-serif;
       text-align: center;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      color: #333;
     }
     canvas {
       display: block;
@@ -19,7 +25,14 @@
       margin: 20px auto;
       padding: 10px 20px;
       font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
     }
     #winner {
       text-align: center;
@@ -38,7 +51,7 @@
     <p>Your unique code is: <span id="unique-code"></span></p>
   </div>
 
-  <!-- Include TweenMax (Legacy Version for Winwheel.js) -->
+  <!-- Include TweenMax (Legacy GSAP Version for Winwheel.js) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
 
   <!-- Include Winwheel.js -->
